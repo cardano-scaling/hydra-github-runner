@@ -31,24 +31,28 @@
               }
               inputs.agenix.nixosModules.default
               (import ./modules/github-runner.nix)
-              {
+              ({pkgs, ...}: {
                 imports = [ "${inputs.nixpkgs}/nixos/modules/virtualisation/amazon-image.nix" ];
 
                 nix.settings.trusted-users = [ "root" ];
 
+                nix = {
+                  package = pkgs.nixVersions.latest;
+                  extraOptions = ''
+                    experimental-features = nix-command flakes
+                  '';
+                };
                 services.openssh.enable = true;
 
                 system.stateVersion = "24.05";
 
-              }
+              })
             ];
           };
         };
       };
 
-    perSystem = { pkgs, system, ... }:
-      {
-
-      };
+      perSystem = { pkgs, system, ... }:
+        { };
     };
 }
