@@ -1,6 +1,6 @@
-# hydra-runner
+# hydra-github-runner
 
-github-runner for hydra
+`github-runner` NixOS system for hydra
 
 ## Deploying
 
