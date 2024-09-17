@@ -22,7 +22,7 @@
             modules = [
               {
                 _module.args.nixinate = {
-                  host = "ec2-15-188-52-33.eu-west-3.compute.amazonaws.com";
+                  host = "ec2-51-44-16-54.eu-west-3.compute.amazonaws.com";
                   sshUser = "root";
                   buildOn = "remote";
                   substituteOnTarget = true;
