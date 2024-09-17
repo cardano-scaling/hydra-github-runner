@@ -31,16 +31,26 @@
               }
               inputs.agenix.nixosModules.default
               (import ./modules/github-runner.nix)
-              ({pkgs, ...}: {
+              ({ pkgs, ... }: {
                 imports = [ "${inputs.nixpkgs}/nixos/modules/virtualisation/amazon-image.nix" ];
-
-                nix.settings.trusted-users = [ "root" ];
 
                 nix = {
                   package = pkgs.nixVersions.latest;
                   extraOptions = ''
                     experimental-features = nix-command flakes
+                    accept-flake-config = true
                   '';
+                  settings.trusted-users = [ "root" ];
+                  settings.substituters = [
+                    "https://cache.iog.io"
+                    "https://hydra-node.cachix.org"
+                    "https://cardano-scaling.cachix.org"
+                  ];
+                  settings.trusted-public-keys = [
+                    "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+                    "hydra-node.cachix.org-1:vK4mOEQDQKl9FTbq76NjOuNaRD4pZLxi1yri31HHmIw="
+                    "cardano-scaling.cachix.org-1:RKvHKhGs/b6CBDqzKbDk0Rv6sod2kPSXLwPzcUQg9lY="
+                  ];
                 };
                 services.openssh.enable = true;
 
